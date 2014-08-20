@@ -382,13 +382,16 @@ package org.robotlegs.base
 		 */
 		protected function removeMediatorLater(event:Event):void
 		{
-			for each (var view:DisplayObject in mediatorsMarkedForRemoval)
-			{
-				if (!view.stage)
-					removeMediatorByView(view);
-				delete mediatorsMarkedForRemoval[view];
+			try {
+				for each (var view:DisplayObject in mediatorsMarkedForRemoval)
+				{
+					if (!view.stage)
+						removeMediatorByView(view);
+					delete mediatorsMarkedForRemoval[view];
+				}
+			} finally {
+				hasMediatorsMarkedForRemoval = false;
 			}
-			hasMediatorsMarkedForRemoval = false;
 		}
 	}
 }
